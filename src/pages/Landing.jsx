@@ -33,7 +33,7 @@ export function Landing(){
         </p>
       </section>
       <div className="flex justify-center mt-8 pb-16">
-        <CoolModeCustom onClick={gotoSignup}/>
+        <CoolModeCustom onClick={gotoSignup} content='Get Started'/>
       </div>
     </div>
   )

@@ -1,14 +1,22 @@
 import { Button } from "../ui/button";
 import { CoolMode } from "../ui/cool-mode";
+import PropTypes from "prop-types";
 
-export function CoolModeCustom(onClick){
+export function CoolModeCustom({ onClick, content }){
   return (
     <div className="relative justify-center">
           <CoolMode className="py-3">
-            <Button className="bg-strong h-12 text-lg font-bold hover:bg-primary"
+            <Button className="bg-violetneon h-12 text-lg font-bold border-2 border-strong hover:bg-primary hover:text-dark"
             onClick={onClick}
-            >Get Started</Button>
+          >
+            {content}
+          </Button>
           </CoolMode>
     </div>
   )
+}
+
+CoolModeCustom.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  content: PropTypes.string.isRequired
 }

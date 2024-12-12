@@ -11,12 +11,12 @@ export default {
   	extend: {
   		colors: {
   			primary: {
-  				DEFAULT: '#ff542a',
+  				DEFAULT: '#4CE0D2',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
-  			strong: '#fb3808',
-  			light: '#ff8c6f',
-  			lightpink: '#f1c0b3',
+  			strong: '#00afb5',
+  			light: '#9892ff',
+  			violetneon: '#5D00FF',
   			dark: '#262626',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -59,6 +59,19 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		animation: {
+  			'background-position-spin': 'background-position-spin 3000ms infinite alternate'
+  		},
+  		keyframes: {
+  			'background-position-spin': {
+  				'0%': {
+  					backgroundPosition: 'top center'
+  				},
+  				'100%': {
+  					backgroundPosition: 'bottom center'
+  				}
+  			}
   		}
   	}
   },
