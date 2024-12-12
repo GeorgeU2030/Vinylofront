@@ -1,6 +1,9 @@
 import { CoolModeCustom } from "@/components/magic/CoolMode"
+import { signup } from "@/services/auth"
+import { AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 export function SignUp(){
   
@@ -28,9 +31,35 @@ export function SignUp(){
       setImage(avatar)
     }
   },[avatar])
+
+  // navigation
+
+  const navigate = useNavigate()
   
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    try {
+      const form = {
+        year: parseInt(data.year),
+        email: data.email,
+        password: data.password,
+        name: data.name,
+        username: data.username,
+        avatar: data.avatar
+      }
+      await signup(form)
+      navigate("/login")
+      
+    }catch(error){
+      if (error instanceof AxiosError && error.response) {
+        
+        if (error.response && error.response.data) {
+          error.response.data.error ? setError(error.response.data.error) : setError(error.response.data.username);
+        }
+        
+      } else {
+        console.error("Unexpected error", error)
+      }
+    }
   }
   
   return (
