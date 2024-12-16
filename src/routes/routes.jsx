@@ -3,6 +3,7 @@ import { Landing } from "@/pages/Landing";
 import { SignUp } from "@/pages/auth/Signup";
 import { Login } from "@/pages/auth/Login";
 import { Home } from "@/pages/Home";
+import { ProtectedRoute } from "./security/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />
+    element: <ProtectedRoute children={<Home />} />
   }
 ])

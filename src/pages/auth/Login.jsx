@@ -53,7 +53,7 @@ export function Login(){
             <img src={collage} alt="collage" className="w-full h-full object-cover rounded-lg" />
           </section>
           <section className='flex flex-col items-center justify-center bg-red-500 w-11/12 h-full lg:w-1/2 lg:h-3/4 bg-gradient-to-r from-primary via-strong to-violetneon rounded-xl lg:m-6 mb-6'>
-            <form className='w-11/12 sm:w-3/4 lg:w-2/3 flex flex-col items-center justify-center gap-4 py-6 px-2 px-12 rounded-xl bg-slate-200 border border-violetneon h-3/4'>
+            <form className='w-11/12 sm:w-3/4 lg:w-2/3 flex flex-col items-center justify-center gap-4 py-6 px-2 lg:px-12 rounded-xl bg-slate-200 border border-violetneon h-3/4'>
               <h1 className='text-2xl text-violetneon'>Login</h1>
               <input placeholder="Email" type="email" className="px-2 py-2 mt-4 rounded-lg w-full border-2 border-strong focus:ring focus:ring-violetneon focus:outline-none"
               {...register("email", { required: true, pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ })}
