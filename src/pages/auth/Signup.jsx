@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 export function SignUp(){
   
   // form
-  const { register, handleSubmit, formState, reset } = useForm()
+  const { register, handleSubmit, formState } = useForm()
   
   // constants
   const currentYear = new Date().getFullYear()
