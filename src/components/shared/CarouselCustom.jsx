@@ -3,7 +3,7 @@ import { VideoDialog } from "../magic/VideoDialog";
 
 export function CarouselCustom({videos}){
     return (
-        <Carousel className='w-3/4 border-2 border-prim rounded-lg'>
+        <Carousel className='w-11/12 sm:w-3/4 border-2 border-prim rounded-lg'>
           {videos.map((video)=>(
             <Carousel.Item key={video.id} interval={3000}>
                 <VideoDialog videoSrc={`https://www.youtube.com/embed/${video.id}`} thumbnailSrc={video.snippet.thumbnails.maxres.url} />

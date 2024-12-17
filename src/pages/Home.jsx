@@ -1,5 +1,6 @@
 
 import { CarouselCustom } from "@/components/shared/CarouselCustom";
+import { YoutubeGrid } from "@/components/youtube/YoutubeGrid";
 import { Layout } from "@/layout/Layout";
 import { fiveVideos } from "@/services/youtube";
 import { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ export function Home(){
       <div className="flex justify-center">
         <CarouselCustom videos={mainVideos} />
       </div>
+      <YoutubeGrid />
     </Layout>
   )
 }
