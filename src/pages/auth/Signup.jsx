@@ -68,7 +68,7 @@ export function SignUp(){
           bg-gradient-to-br from-strong from-35% to-violetneon
           before:absolute before:inset-0
           before:rounded-xl
-          before:bg-gradient-to-br before:from-light before:to-strong
+          before:bg-gradient-to-br before:from-lightviolet before:to-strong
           before:opacity-10
           before:blur-xl
           border-2 border-strong shadow-xl

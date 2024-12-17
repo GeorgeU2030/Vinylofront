@@ -6,7 +6,7 @@ export function CoolModeCustom({ onClick, content }){
   return (
     <div className="relative justify-center">
           <CoolMode className="py-3">
-            <Button className="bg-violetneon h-12 text-lg font-bold border-2 border-strong hover:bg-primary hover:text-dark"
+            <Button className="bg-violetneon h-12 text-lg text-white font-bold border-2 border-strong hover:bg-strong"
             onClick={onClick}
           >
             {content}

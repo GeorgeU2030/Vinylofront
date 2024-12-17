@@ -10,12 +10,12 @@ export default {
   theme: {
   	extend: {
   		colors: {
-  			primary: {
+  			prim: {
   				DEFAULT: '#4CE0D2',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			strong: '#00afb5',
-  			light: '#9892ff',
+  			lightviolet: '#9892ff',
   			violetneon: '#5D00FF',
   			dark: '#262626',
   			background: 'hsl(var(--background))',
