@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import history from "../assets/history.png"
 import { User, LogOut } from "lucide-react"
 import { SelectCustom } from "./shared/SelectCustom"
+import { AuthContext } from "@/context/Authcontext"
 
 export const Menubar = ({user, activeItem}) => {
 
@@ -17,10 +18,19 @@ export const Menubar = ({user, activeItem}) => {
 
     // states
     const [menu, setMenu] = useState(false)
-    const [selected, setSelected] = useState(options[0].key)
 
     // navigation
     const navigate = useNavigate()
+
+    // context
+    const authContext = useContext(AuthContext)
+    const { logoutContext } = authContext
+
+    // logout
+    const logout = () => {
+        logoutContext()
+        localStorage.removeItem('token')
+    }
 
     // toogle menu
     const toggleMenu = () => setMenu(!menu)
@@ -68,11 +78,11 @@ export const Menubar = ({user, activeItem}) => {
                     </button>
                     {menu && (
                         <div className="absolute right-2 mt-10 w-32 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
-                            <div className="py-1 rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                            <div className="py-1 rounded-lg cursor-pointer" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             <a href="/profile" className="flex items-center px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem">
                               <User className="text-violetneon mr-2"/>  Profile
                             </a>
-                            <a href="/logout" className="flex items-center px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem">
+                            <a className="flex items-center px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" onClick={logout}>
                               <LogOut className="text-violetneon mr-2"/> Logout
                             </a>
                             </div>

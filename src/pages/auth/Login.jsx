@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/context/Authcontext';
 import { login } from '@/services/auth';
 import { AxiosError } from 'axios';
+import { getSpotifyToken } from '@/services/spotify';
 
 export function Login(){
   
@@ -33,6 +34,8 @@ export function Login(){
         }
         const response = await login(form)
         loginContext(response.user)
+        const spotifyResponse = await getSpotifyToken()
+        localStorage.setItem('spotifyToken', spotifyResponse)
         navigate("/home")
       }catch(error){
         if (error instanceof AxiosError && error.response) {
