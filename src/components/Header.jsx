@@ -20,7 +20,7 @@ export function Header(){
       </div>
       <div className="flex gap-4 px-2">
         <button className="bg-strong text-white px-4 sm:px-8 py-2 rounded-md border-2 border-lightviolet hover:bg-violetneon" onClick={gotoLogin}>Sign in</button>
-        <button className="bg-black text-white px-4 sm:px-8 py-2 rounded-md border-2 border-strong hover:bg-dark"
+        <button className="bg-black text-white px-4 sm:px-8 py-2 rounded-md border-2 border-strong"
         onClick={gotoSignup}
         >Sign up</button>
       </div>
