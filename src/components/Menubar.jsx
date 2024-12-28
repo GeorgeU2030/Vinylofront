@@ -58,7 +58,9 @@ export const Menubar = ({user, activeItem}) => {
                     >
                         Explore
                     </button>
-                    <button className={`rounded-lg cursor-pointer font-bold px-6 py-2 ${getButtonClass('ranking')}`}>
+                    <button className={`rounded-lg cursor-pointer font-bold px-6 py-2 ${getButtonClass('ranking')}`}
+                        onClick={()=>navigate('/ranking')}
+                    >
                         Ranking
                     </button>
                     <button className={`rounded-lg cursor-pointer font-bold px-6 py-2 ${getButtonClass('awards')}`}>
@@ -70,7 +72,7 @@ export const Menubar = ({user, activeItem}) => {
                 </div>
                 
                 <div className="flex sm:hidden mr-4">
-                    <SelectCustom options={options} navigate={navigate} />
+                    <SelectCustom options={options} navigate={navigate} activeItem={activeItem}/>
                 </div>
                 <div className="flex">
                     <button className="rounded-full border-2 border-lightviolet" onClick={toggleMenu}>

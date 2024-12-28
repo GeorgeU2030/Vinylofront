@@ -8,9 +8,14 @@ import {
     SelectValue, } from "../ui/select"
 import { useState } from "react";
 
-export const SelectCustom = ({ options, navigate }) => {
-    const [selected, setSelected] = useState(options[0].key);
-    const defaultValue = options[0].label
+export const SelectCustom = ({ options, navigate,activeItem }) => {
+    
+    const activeOption = options.find((option)=> option.key == activeItem) || options[0]
+
+    console.log(activeItem)
+    console.log(activeOption)
+    const [selected, setSelected] = useState(activeOption.key);
+    const defaultValue = activeOption.label
 
     return (
         <Select onValueChange={(value) => {

@@ -10,10 +10,9 @@ export const YoutubeItem = () => {
 
     const video = location.state?.video
 
-    console.log(location.state.video)
-    if(!video){
+    if(!location.state){
         return (
-            <div>
+            <div className="h-screen w-screen flex items-center justify-center">
                 <h1 className="text-white">Video not found</h1>
             </div>
         )
