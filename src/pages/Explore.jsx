@@ -4,6 +4,7 @@ import { useContext, useState } from "react"
 import vinylomusic from '../assets/vinylomusic.png'
 import { searchTracks } from "@/services/spotify"
 import { AuthContext } from "@/context/Authcontext"
+import { useNavigate } from "react-router-dom"
 
 export const Explore = () => {
 
@@ -13,6 +14,9 @@ export const Explore = () => {
 
     const authContext = useContext(AuthContext)
     const { logoutContext } = authContext
+
+    // navigation
+    const navigate = useNavigate()
 
     // functions
     const clickSearch = async () => {
@@ -45,6 +49,10 @@ export const Explore = () => {
         
     }
 
+    const handleTrack = (track) => {
+        navigate('/song-detail', { state: { track } })
+    }
+
     return (
         <Layout menuActiveItem={'explore'}>
             <div>
@@ -73,7 +81,8 @@ export const Explore = () => {
                     className="flex items-center py-2 rounded-lg bg-light cursor-pointer 
                                border-2 border-transparent bg-gradient-to-br from-prim to-violetneon
                                shadow-[0_0_10px_2px_rgba(76,224,210,0.5),0_0_15px_5px_rgba(152,146,255,0.4)]"
-                  >
+                    onClick={() => handleTrack(track)}
+                    >
                         <img src={track.album} alt={track.name} className="w-32 rounded-lg mx-2 h-32 object-cover" />
                         <div className="flex flex-col">
                         <h3 className="mt-2 mx-2 text-xl bg-gradient-to-r from-black to-dark bg-clip-text text-transparent">{track.name}</h3>

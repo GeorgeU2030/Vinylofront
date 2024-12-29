@@ -26,3 +26,12 @@ export const searchTracks = async (token,query) => {
     });
     return data.tracks.items;
 }
+
+export const getTrack = async (token, id) => {
+    const { data } = await axios.get(`https://api.spotify.com/v1/tracks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+    });
+    return data;
+}
