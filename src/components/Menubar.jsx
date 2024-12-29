@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import history from "../assets/history.png"
+import music from "../assets/music.png"
 import { User, LogOut } from "lucide-react"
 import { SelectCustom } from "./shared/SelectCustom"
 import { AuthContext } from "@/context/Authcontext"
@@ -10,6 +11,7 @@ export const Menubar = ({user, activeItem}) => {
     // options for mobile devices
     const options = [
         {key: "home", label: "Home"},
+        {key: "songs", label: "Songs"},
         {key: "explore", label: "Explore"},
         {key: "ranking", label: "Ranking"},
         {key: "awards", label: "Awards"},
@@ -40,6 +42,10 @@ export const Menubar = ({user, activeItem}) => {
         return item === activeItem ? "bg-strong" : "bg-prim hover:bg-strong"
     }
 
+    const getIconClass = (item)=>{
+        return item === activeItem ? "bg-violetneon" : ""
+    }
+
     return (
         <nav className="flex items-center justify-between min-h-20 bg-gradient-to-r from-pomepinkdark to-pomeorange">
             <div className="flex items-center lg:px-2 cursor-pointer"
@@ -52,6 +58,11 @@ export const Menubar = ({user, activeItem}) => {
             </div>
             <div className="flex items-center lg:mr-12 mr-1 w-2/3 lg:w-2/5 justify-end ">
                 <div className="hidden sm:flex gap-2">
+                    <button className={`rounded-lg px-2 py-2 cursor-pointer ${getIconClass('songs')}`}
+                        onClick={()=>navigate('/songs')}
+                    >
+                        <img src={music} className="w-8 h-8"/>
+                    </button>
                     <button className={`rounded-lg cursor-pointer font-bold px-6 py-2 ${getButtonClass('explore')}`}
                         onClick={()=>navigate('/explore')}
                         type="button"
@@ -68,7 +79,9 @@ export const Menubar = ({user, activeItem}) => {
                     >
                         Awards
                     </button>
-                    <button className="rounded-lg px-2 py-2 cursor-pointer">
+                    <button className={`rounded-lg px-2 py-2 cursor-pointer mr-2 ${getIconClass('history')}`}
+                        onClick={()=>navigate('/history')}
+                    >
                         <img src={history} className="w-8 h-8"/>
                     </button>
                 </div>

@@ -48,9 +48,12 @@ export const Explore = () => {
     return (
         <Layout menuActiveItem={'explore'}>
             <div>
-                <h1 className="text-2xl bg-gradient-to-r from-strong via-prim to-lightviolet bg-clip-text text-transparent">
-                    Explore New Tracks
-                </h1>
+                <div className="flex justify-center items-center px-8 ">
+                    <h1 className="text-2xl bg-gradient-to-r from-strong via-prim to-lightviolet bg-clip-text text-transparent flex-grow text-center">
+                        Explore New Tracks
+                    </h1>
+                    
+                </div>
                 <div className="w-full flex mt-3 justify-center">
                     <input placeholder="Enter a Track Name" className="w-5/6 p-2 rounded-bl-lg rounded-tl-lg bg-slate-200 outline-none"
                     value={search}

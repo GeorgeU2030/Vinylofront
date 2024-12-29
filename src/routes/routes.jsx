@@ -9,6 +9,8 @@ import { Explore } from "@/pages/Explore";
 import { Profile } from "@/pages/Profile";
 import { Ranking } from "@/pages/Ranking";
 import { Awards } from "@/pages/Awards";
+import { Songs } from "@/pages/Songs";
+import { History } from "@/pages/History";
 
 export const router = createBrowserRouter([
   {
@@ -46,5 +48,13 @@ export const router = createBrowserRouter([
   {
     path: "/awards",
     element: <ProtectedRoute children={<Awards/>}/>
+  },
+  {
+    path: "/songs",
+    element: <ProtectedRoute children={<Songs/>}/>
+  },
+  {
+    path: "/history",
+    element: <ProtectedRoute children={<History/>}/>
   }
 ])
