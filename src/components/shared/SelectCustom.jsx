@@ -12,8 +12,6 @@ export const SelectCustom = ({ options, navigate,activeItem }) => {
     
     const activeOption = options.find((option)=> option.key == activeItem) || options[0]
 
-    console.log(activeItem)
-    console.log(activeOption)
     const [selected, setSelected] = useState(activeOption.key);
     const defaultValue = activeOption.label
 

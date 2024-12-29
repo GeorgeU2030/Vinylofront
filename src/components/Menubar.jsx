@@ -63,7 +63,9 @@ export const Menubar = ({user, activeItem}) => {
                     >
                         Ranking
                     </button>
-                    <button className={`rounded-lg cursor-pointer font-bold px-6 py-2 ${getButtonClass('awards')}`}>
+                    <button className={`rounded-lg cursor-pointer font-bold px-6 py-2 ${getButtonClass('awards')}`}
+                        onClick={()=>navigate('/awards')}
+                    >
                         Awards
                     </button>
                     <button className="rounded-lg px-2 py-2 cursor-pointer">

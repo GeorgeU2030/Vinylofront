@@ -8,6 +8,7 @@ import { YoutubeItem } from "@/pages/YoutubeItem";
 import { Explore } from "@/pages/Explore";
 import { Profile } from "@/pages/Profile";
 import { Ranking } from "@/pages/Ranking";
+import { Awards } from "@/pages/Awards";
 
 export const router = createBrowserRouter([
   {
@@ -41,5 +42,9 @@ export const router = createBrowserRouter([
   {
     path: "/ranking",
     element: <ProtectedRoute children={<Ranking/>}/>
+  },
+  {
+    path: "/awards",
+    element: <ProtectedRoute children={<Awards/>}/>
   }
 ])
