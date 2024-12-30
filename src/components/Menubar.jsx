@@ -32,6 +32,7 @@ export const Menubar = ({user, activeItem}) => {
     const logout = () => {
         logoutContext()
         localStorage.removeItem('token')
+        localStorage.removeItem('spotifyToken')
     }
 
     // toogle menu

@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
 
@@ -23,6 +24,9 @@ export const AuthProvider = ({ children }) => {
   const logoutContext = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('spotifyToken')
+    localStorage.removeItem('token')
+
   }
 
   const updateUserContext = (updatedUser) => {

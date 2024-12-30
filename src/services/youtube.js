@@ -21,3 +21,10 @@ export const getChannelDetails = async (channelId) => {
     const response = await axios.get(url);
     return response.data.items[0];
 };
+
+export const searchVideoandGetId = async (searchTerm) => {
+    const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${searchTerm}&type=video&key=${apiKey}`;
+    const response = await axios.get(url);
+    return response.data.items[0].id.videoId;
+}
