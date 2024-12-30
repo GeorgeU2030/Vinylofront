@@ -1,14 +1,38 @@
 import axios from "axios";
 
 
+// control service and special artist
+
+export const getCountryController = async (artist)=>{
+    if (artist === 'LISA'){
+        return getArtistSpecialLisa()
+    } else if (artist === 'Oaks'){
+        return getArtistSpecialOaks()
+    }else {
+        
+        return getArtistCountry(artist)
+    }
+}
+
+export const getArtistCountry = async (artist)=>{
+    const url = `https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`
+    const response = await axios.get(url)
+    const city = response.data.artists[0]['begin-area'].name
+
+    const geonamesurl = `http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=georgeu2030`
+    const geonamesresponse = await axios.get(geonamesurl)
+    
+    return geonamesresponse.data.geonames[0].countryName
+}
 
 
 // special cases
+// LISA CASE
 export const getArtistSpecialLisa = async ()=>{
+    return "Thailand"
+}
 
-    const url = 'https://musicbrainz.org/ws/2/artist?query=artist:LISA Blackpink&fmt=json'
-
-    const response = await axios.get(url)
-    console.log(response.data.artists[1])
-    return response.data.artists[1]
+// Oaks CASE
+export const getArtistSpecialOaks = async ()=>{
+    return "Sweden"
 }

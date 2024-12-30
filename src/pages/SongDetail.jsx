@@ -11,6 +11,9 @@ import { AuthContext } from "@/context/Authcontext"
 import { searchVideoandGetId } from "@/services/youtube"
 import { YoutubeVideo } from "@/components/youtube/YoutubeVideo"
 import { CoolModeCustom } from "@/components/magic/CoolMode"
+import { getCountryController } from "@/services/musicbrainz"
+import { restCountry } from "@/services/restcountry"
+
 
 export const SongDetail = () => {
 
@@ -35,6 +38,8 @@ export const SongDetail = () => {
     const [currentDate, setCurrentDate] = useState(null)
     const [videoId, setVideoId] = useState('')
     const [artists, setArtists] = useState([])
+    const [message, setMessage] = useState('')
+    
 
     // effects
     useEffect(() => {
@@ -43,7 +48,6 @@ export const SongDetail = () => {
             const id = track.id
             getTrack(token, id).then(data => {
                 setDetailTrack(data)
-                console.log("artist"+data.artists.length)
                 data.artists.map(artist => {
                     getArtist(token, artist.id).then(data => {
                         setArtists(prev => {
@@ -103,11 +107,39 @@ export const SongDetail = () => {
 
     const handleButtonClick = (rating) => {
         setRating(rating)
+        setMessage('')
+    }
+
+    const getCountryArtist = () => {
+        artists.map(artist => {
+            getCountryController(artist.name).then(data => {
+                setArtists(prev => prev.map(item => {
+                    if(item.id === artist.id){
+                        return {...item, country: data}
+                    }
+                    return item
+                }))
+                restCountry(data).then(data => {
+                    setArtists(prev => prev.map(item => {
+                        if(item.id === artist.id){
+                            return {...item, flag: data}
+                        }
+                        return item
+                    }))
+                })
+            })
+        })
     }
 
     const sendData = () => {
-
+        if(rating === ''){
+            setMessage("Please rate the song first")
+            return
+        }else {
+            getCountryArtist()
+        }
     }
+
 
     return (
         <div className="flex flex-col min-h-screen bg-black">
@@ -161,12 +193,15 @@ export const SongDetail = () => {
                         <YoutubeVideo videoId={videoId}/>
                         <div className="flex mt-4 gap-3 mb-8">
                             {artists.map(artist => (
-                                <div className="flex flex-col items-center justify-center mt-4">
+                                <div className="flex flex-col items-center justify-center mt-4" key={artist.id}> 
                                     <img src={artist.images[0].url} className="w-28 h-28 rounded-md border-2 border-violetneon"/>
                                     <h1 className="text-white text-sm mt-4">{artist.name}</h1>
                                 </div>
                             ))}
                         </div>
+                        {message && (
+                            <p className="text-slate-100 py-3">{message}</p>
+                        )}
                         <CoolModeCustom content="Add Song" onClick={sendData}/>
                     </section>
                 </section>
