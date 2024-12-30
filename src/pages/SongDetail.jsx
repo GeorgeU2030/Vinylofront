@@ -1,5 +1,5 @@
 import { GradualSpacingDemo } from "@/components/magic/TextGradual"
-import { getTrack } from "@/services/spotify"
+import { getArtist, getTrack } from "@/services/spotify"
 import { useContext, useEffect, useRef, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import vinyloroyal from "@/assets/vinylos/vinyloroyal.png"
@@ -10,6 +10,7 @@ import { getLastWeek } from "@/services/songs"
 import { AuthContext } from "@/context/Authcontext"
 import { searchVideoandGetId } from "@/services/youtube"
 import { YoutubeVideo } from "@/components/youtube/YoutubeVideo"
+import { CoolModeCustom } from "@/components/magic/CoolMode"
 
 export const SongDetail = () => {
 
@@ -33,7 +34,7 @@ export const SongDetail = () => {
     const [endDate, setEndDate] = useState('')
     const [currentDate, setCurrentDate] = useState(null)
     const [videoId, setVideoId] = useState('')
-
+    const [artists, setArtists] = useState([])
 
     // effects
     useEffect(() => {
@@ -42,6 +43,17 @@ export const SongDetail = () => {
             const id = track.id
             getTrack(token, id).then(data => {
                 setDetailTrack(data)
+                console.log("artist"+data.artists.length)
+                data.artists.map(artist => {
+                    getArtist(token, artist.id).then(data => {
+                        setArtists(prev => {
+                            if(!prev.some(item => item.id === data.id)){
+                                return [...prev, data]
+                            }
+                            return prev
+                        })
+                    })
+                })  
             })
             .catch(error => {
                 logoutContext()
@@ -93,6 +105,10 @@ export const SongDetail = () => {
         setRating(rating)
     }
 
+    const sendData = () => {
+
+    }
+
     return (
         <div className="flex flex-col min-h-screen bg-black">
             <nav
@@ -109,8 +125,8 @@ export const SongDetail = () => {
             </nav>
             {detailTrack && (
             <div className="flex flex-col flex-grow w-full bg-gradient-to-t from-black via-black to-strong items-center justify-center">
-                <section className="flex flex-row w-full ">
-                    <section className="w-1/2 flex flex-col items-center justify-center py-6 ">
+                <section className="flex md:flex-row flex-col w-full ">
+                    <section className="w-full md:w-1/2 flex flex-col items-center justify-center py-6 ">
                         <img src={detailTrack.album.images[0].url} className="w-64 h-64 rounded-md border-2 border-violetneon"/>
                         <h1 className="text-white text-2xl mt-4 mb-2">{detailTrack.name}</h1>
                         <GradualSpacingDemo content={`Release in ${detailTrack.album.release_date}`} />
@@ -141,8 +157,17 @@ export const SongDetail = () => {
                             <input className="rounded-lg w-32 py-2 border-1 border-violetneon bg-prim text-center" value={endDate} disabled/>
                         </div>
                     </section>
-                    <section className="w-1/2 flex flex-col items-center justify-center py-6 ">
+                    <section className="w-full md:w-1/2 flex flex-col items-center justify-center py-6 px-1">
                         <YoutubeVideo videoId={videoId}/>
+                        <div className="flex mt-4 gap-3 mb-8">
+                            {artists.map(artist => (
+                                <div className="flex flex-col items-center justify-center mt-4">
+                                    <img src={artist.images[0].url} className="w-28 h-28 rounded-md border-2 border-violetneon"/>
+                                    <h1 className="text-white text-sm mt-4">{artist.name}</h1>
+                                </div>
+                            ))}
+                        </div>
+                        <CoolModeCustom content="Add Song" onClick={sendData}/>
                     </section>
                 </section>
             </div>

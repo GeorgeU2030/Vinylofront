@@ -35,3 +35,12 @@ export const getTrack = async (token, id) => {
     });
     return data;
 }
+
+export const getArtist = async (token, id) => {
+    const { data } = await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+    });
+    return data;
+}
