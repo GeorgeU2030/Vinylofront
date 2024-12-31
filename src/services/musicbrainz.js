@@ -18,10 +18,8 @@ export const getArtistCountry = async (artist)=>{
     const url = `https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`
     const response = await axios.get(url)
     const city = response.data.artists[0]['begin-area'].name
-
     const geonamesurl = `http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=georgeu2030`
     const geonamesresponse = await axios.get(geonamesurl)
-    
     return geonamesresponse.data.geonames[0].countryName
 }
 

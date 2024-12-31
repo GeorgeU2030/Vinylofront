@@ -6,7 +6,7 @@ import vinyloroyal from "@/assets/vinylos/vinyloroyal.png"
 import vinyloemerald from "@/assets/vinylos/vinyloemerald.png"
 import vinylosky from "@/assets/vinylos/vinylosky.png"
 import vinyloplatinum from "@/assets/vinylos/vinyloplatinum.png"
-import { getLastWeek } from "@/services/songs"
+import { addSong, getLastWeek } from "@/services/songs"
 import { AuthContext } from "@/context/Authcontext"
 import { searchVideoandGetId } from "@/services/youtube"
 import { YoutubeVideo } from "@/components/youtube/YoutubeVideo"
@@ -39,7 +39,7 @@ export const SongDetail = () => {
     const [videoId, setVideoId] = useState('')
     const [artists, setArtists] = useState([])
     const [message, setMessage] = useState('')
-    
+    const [allArtistLoaded, setAllArtistLoaded] = useState(false)
 
     // effects
     useEffect(() => {
@@ -48,32 +48,44 @@ export const SongDetail = () => {
             const id = track.id
             getTrack(token, id).then(data => {
                 setDetailTrack(data)
-                data.artists.map(artist => {
-                    getArtist(token, artist.id).then(data => {
-                        setArtists(prev => {
-                            if(!prev.some(item => item.id === data.id)){
-                                return [...prev, data]
-                            }
-                            return prev
-                        })
-                    })
-                })  
+                const artistPromises = data.artists.map(artist => getArtist(token, artist.id))
+                
+                // Usamos Promise.all para esperar a que todas las promesas se resuelvan
+                Promise.all(artistPromises).then(artistsData => {
+                    // Ahora puedes actualizar el estado de los artistas
+                    setArtists(prev => {
+                        const newArtists = artistsData.filter(data => 
+                            !prev.some(item => item.id === data.id)
+                        );
+                        return [...prev, ...newArtists];
+                    });
+                    setAllArtistLoaded(true);
+                });
             })
             .catch(error => {
-                logoutContext()
-                navigate('/login')
-            })
-            const searchTerm = `${track.name} ${track.artists[0].name}`
+                logoutContext();
+                navigate('/login');
+            });
+   
+            const searchTerm = `${track.name} ${track.artists[0].name}`;
             searchVideoandGetId(searchTerm).then(data => {
-                setVideoId(data)
-            })
+                setVideoId(data);
+            });
         }
         getLastWeek().then(data => {
-            weekRef.current = data
-        })
-        calculateDates()
-        
-    }, [track])
+            weekRef.current = data;
+        });
+        calculateDates();
+    }, [track]);
+   
+    useEffect(() => {
+        if(allArtistLoaded && artists.length > 0){
+            
+            if (!artists.some(artist => artist.country)){
+                getCountryArtist();
+            }
+        }
+    }, [allArtistLoaded, artists]);
     
 
     if(!location.state){
@@ -111,6 +123,10 @@ export const SongDetail = () => {
     }
 
     const getCountryArtist = () => {
+        if(artists.length === 0){
+            return
+        }
+        
         artists.map(artist => {
             getCountryController(artist.name).then(data => {
                 setArtists(prev => prev.map(item => {
@@ -131,12 +147,35 @@ export const SongDetail = () => {
         })
     }
 
-    const sendData = () => {
+    const sendData = async () => {
         if(rating === ''){
             setMessage("Please rate the song first")
             return
         }else {
-            getCountryArtist()
+            const form = {
+                "name": detailTrack.name,
+                "rating": rating,
+                "start_date": startDate,
+                "end_date": endDate,
+                "week": weekRef.current,
+                "release_date": detailTrack.album.release_date,
+                "album": detailTrack.album.images[0].url,
+                "youtube_id": videoId,
+                "profile": user.id,
+                "artists": artists.map(artist => {
+                    return {
+                        "name": artist.name,
+                        "image": artist.images[0].url,
+                        "country": artist.country,
+                        "flag": artist.flag,
+                        "followers": artist.followers,
+                        "genres": artist.genres
+                    }
+                })
+            }
+            addSong(form).then(data => {
+                console.log(data)
+            })
         }
     }
 
@@ -200,7 +239,7 @@ export const SongDetail = () => {
                             ))}
                         </div>
                         {message && (
-                            <p className="text-slate-100 py-3">{message}</p>
+                            <p className="text-slate-100 pb-3">{message}</p>
                         )}
                         <CoolModeCustom content="Add Song" onClick={sendData}/>
                     </section>

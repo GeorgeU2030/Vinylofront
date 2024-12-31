@@ -8,3 +8,8 @@ export const getLastWeek = async () => {
     });
     return response.data.week;
 }
+
+export const addSong = async (song) => {
+    const response = await instance.post("/music/add", song);
+    return response.data;    
+}
