@@ -13,6 +13,7 @@ import { YoutubeVideo } from "@/components/youtube/YoutubeVideo"
 import { CoolModeCustom } from "@/components/magic/CoolMode"
 import { getCountryController } from "@/services/musicbrainz"
 import { restCountry } from "@/services/restcountry"
+import { getArtistMonth, updateArtists, updateCurrentDate } from "@/services/artists"
 
 
 export const SongDetail = () => {
@@ -50,9 +51,8 @@ export const SongDetail = () => {
                 setDetailTrack(data)
                 const artistPromises = data.artists.map(artist => getArtist(token, artist.id))
                 
-                // Usamos Promise.all para esperar a que todas las promesas se resuelvan
+                
                 Promise.all(artistPromises).then(artistsData => {
-                    // Ahora puedes actualizar el estado de los artistas
                     setArtists(prev => {
                         const newArtists = artistsData.filter(data => 
                             !prev.some(item => item.id === data.id)
@@ -122,29 +122,32 @@ export const SongDetail = () => {
         setMessage('')
     }
 
-    const getCountryArtist = () => {
+    const getCountryArtist = async () => {
         if(artists.length === 0){
             return
         }
         
-        artists.map(artist => {
-            getCountryController(artist.name).then(data => {
-                setArtists(prev => prev.map(item => {
-                    if(item.id === artist.id){
-                        return {...item, country: data}
-                    }
-                    return item
-                }))
-                restCountry(data).then(data => {
-                    setArtists(prev => prev.map(item => {
-                        if(item.id === artist.id){
-                            return {...item, flag: data}
-                        }
-                        return item
-                    }))
+        try {
+            const updatedArtists = await Promise.all(
+                artists.map(async (artist) => {
+                    
+                    const country = await getCountryController(artist.name);
+                    
+                    const flag = await restCountry(country);
+                    
+                    return {
+                        ...artist,
+                        country: country,
+                        flag: flag
+                    };
                 })
-            })
-        })
+            );
+
+            setArtists(updatedArtists);
+            
+        } catch (error) {
+            console.error('Error getting country data:', error);
+        }
     }
 
     const sendData = async () => {
@@ -152,6 +155,7 @@ export const SongDetail = () => {
             setMessage("Please rate the song first")
             return
         }else {
+            
             const form = {
                 "name": detailTrack.name,
                 "rating": rating,
@@ -165,17 +169,31 @@ export const SongDetail = () => {
                 "artists": artists.map(artist => {
                     return {
                         "name": artist.name,
-                        "image": artist.images[0].url,
+                        "photo": artist.images[0].url,
                         "country": artist.country,
                         "flag": artist.flag,
-                        "followers": artist.followers,
-                        "genres": artist.genres
+                        "followers": artist.followers.total,
+                        "genres": artist.genres.slice(0, 3),
                     }
                 })
             }
+
+            const updateArtistsForm = {
+                week: weekRef.current,
+                start_date: startDate,
+                end_date: endDate,
+                artists: artists,
+                rating: rating
+            }
             addSong(form).then(data => {
-                console.log(data)
+                updateCurrentDate({
+                    "currentDate": currentDate,
+                    "profile": user.id
+                }).then(data => {
+                    updateArtists(updateArtistsForm)
+                })
             })
+            getArtistMonth(startDate)
         }
     }
 

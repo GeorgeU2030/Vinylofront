@@ -6,6 +6,5 @@ export const updateUser = async (id,updateData) => {
             id
         }
     })
-    console.log(response.data)
     return response.data
 }

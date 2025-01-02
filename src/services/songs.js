@@ -10,6 +10,10 @@ export const getLastWeek = async () => {
 }
 
 export const addSong = async (song) => {
-    const response = await instance.post("/music/add", song);
+    const response = await instance.post("/music/api/songs/", song, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
     return response.data;    
 }
