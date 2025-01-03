@@ -17,3 +17,13 @@ export const addSong = async (song) => {
     });
     return response.data;    
 }
+
+export const getAllSongs = async () => {
+    const response = await instance.get("/music/get_allsongs/", {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    })
+    
+    return response.data;
+}

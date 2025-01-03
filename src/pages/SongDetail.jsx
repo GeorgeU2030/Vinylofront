@@ -197,7 +197,13 @@ export const SongDetail = () => {
                 })
             })
 
-            toast.success("Song added successfully")
+            if(weekRef.current % 52 === 0){
+                toast.success("Song added successfully. New GOLD award has been added")
+            }else if (weekRef.current % 26 === 0){
+                toast.success("Song added successfully. New Ambar award has been added")
+            }else {
+                toast.success("Song added successfully")
+            }
             
             if(isLastWeekMonth()){
                 navigate('/artist-month',
