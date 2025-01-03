@@ -12,6 +12,7 @@ import { Awards } from "@/pages/Awards";
 import { Songs } from "@/pages/Songs";
 import { History } from "@/pages/History";
 import { SongDetail } from "@/pages/SongDetail";
+import { ArtistMonth } from "@/pages/ArtistMonth";
 
 export const router = createBrowserRouter([
   {
@@ -61,5 +62,9 @@ export const router = createBrowserRouter([
   {
     path: "/song-detail",
     element: <ProtectedRoute children={<SongDetail/>}/>
+  },
+  {
+    path: "/artist-month",
+    element: <ProtectedRoute children={<ArtistMonth/>}/>
   }
 ])

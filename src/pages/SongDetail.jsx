@@ -13,8 +13,8 @@ import { YoutubeVideo } from "@/components/youtube/YoutubeVideo"
 import { CoolModeCustom } from "@/components/magic/CoolMode"
 import { getCountryController } from "@/services/musicbrainz"
 import { restCountry } from "@/services/restcountry"
-import { getArtistMonth, updateArtists, updateCurrentDate } from "@/services/artists"
-
+import { updateArtists, updateCurrentDate } from "@/services/artists"
+import { toast } from "react-toastify"
 
 export const SongDetail = () => {
 
@@ -132,7 +132,9 @@ export const SongDetail = () => {
                 artists.map(async (artist) => {
                     
                     const country = await getCountryController(artist.name);
-                    
+                    if(!country){
+                        return artist;
+                    }
                     const flag = await restCountry(country);
                     
                     return {
@@ -142,7 +144,7 @@ export const SongDetail = () => {
                     };
                 })
             );
-
+            
             setArtists(updatedArtists);
             
         } catch (error) {
@@ -185,7 +187,7 @@ export const SongDetail = () => {
                 artists: artists,
                 rating: rating
             }
-            addSong(form).then(data => {
+            await addSong(form).then(data => {
                 updateCurrentDate({
                     "currentDate": currentDate,
                     "profile": user.id
@@ -194,14 +196,25 @@ export const SongDetail = () => {
                     updateArtists(updateArtistsForm)
                 })
             })
+
+            toast.success("Song added successfully")
+            
             if(isLastWeekMonth()){
-                getArtistMonth(startDate)
+                navigate('/artist-month',
+                    {
+                        state: { startDate }
+                    }
+                )
+            }else {
+                navigate('/songs')
             }
+
         }
     }
 
     const isLastWeekMonth = () => {
         const beginDate = new Date(startDate)
+       
         const year = beginDate.getFullYear()
         const month = beginDate.getMonth() + 1
 
@@ -210,8 +223,8 @@ export const SongDetail = () => {
         const upperLimit = parseInt(daysInMonth,10) - 3
         const lowerLimit = upperLimit - 6
 
-        const day = beginDate.getDate()
-        console.log("day",day)
+        const day = beginDate.getDate() + 1
+        
 
         if (day >= lowerLimit && day <= upperLimit){
             return true

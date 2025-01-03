@@ -26,3 +26,12 @@ export const getArtistMonth = async (startDate) => {
     });
     return response.data;
 }
+
+export const addMonthAward = async (infoAward) => {
+    const response = await instance.post("/music/add_month_award/", infoAward , {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    })
+    return response.data;
+}
