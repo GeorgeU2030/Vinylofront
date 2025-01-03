@@ -21,7 +21,7 @@ export const SongDetail = () => {
     // context
     const authContext = useContext(AuthContext)
 
-    const { user, logoutContext } = authContext
+    const { user, logoutContext, updateUserContext } = authContext
 
     // navigation
     const location = useLocation()
@@ -190,10 +190,33 @@ export const SongDetail = () => {
                     "currentDate": currentDate,
                     "profile": user.id
                 }).then(data => {
+                    updateUserContext(data.user)
                     updateArtists(updateArtistsForm)
                 })
             })
-            getArtistMonth(startDate)
+            if(isLastWeekMonth()){
+                getArtistMonth(startDate)
+            }
+        }
+    }
+
+    const isLastWeekMonth = () => {
+        const beginDate = new Date(startDate)
+        const year = beginDate.getFullYear()
+        const month = beginDate.getMonth() + 1
+
+        const daysInMonth = new Date(year, month, 0).getDate()
+
+        const upperLimit = parseInt(daysInMonth,10) - 3
+        const lowerLimit = upperLimit - 6
+
+        const day = beginDate.getDate()
+        console.log("day",day)
+
+        if (day >= lowerLimit && day <= upperLimit){
+            return true
+        } else {
+            return false
         }
     }
 
