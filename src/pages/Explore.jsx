@@ -5,6 +5,7 @@ import vinylomusic from '../assets/vinylomusic.png'
 import { searchTracks } from "@/services/spotify"
 import { AuthContext } from "@/context/Authcontext"
 import { useNavigate } from "react-router-dom"
+import { NoArtistsMessage } from "@/components/shared/NoArtistsMessage"
 
 export const Explore = () => {
 
@@ -13,10 +14,18 @@ export const Explore = () => {
     const [tracks, setTracks] = useState([])
 
     const authContext = useContext(AuthContext)
-    const { logoutContext } = authContext
+    const { user, logoutContext } = authContext
 
     // navigation
     const navigate = useNavigate()
+
+    let hasDate;
+
+    if (user.dateInit != null){
+        hasDate = true
+    }else {
+        hasDate = false
+    }
 
     // functions
     const clickSearch = async () => {
@@ -56,6 +65,8 @@ export const Explore = () => {
     return (
         <Layout menuActiveItem={'explore'}>
             <div>
+                {hasDate ? (
+                <>
                 <div className="flex justify-center items-center px-8 ">
                     <h1 className="text-2xl bg-gradient-to-r from-strong via-prim to-lightviolet bg-clip-text text-transparent flex-grow text-center">
                         Explore New Tracks
@@ -100,6 +111,15 @@ export const Explore = () => {
                     <img src={vinylomusic} className="h-32 w-32"/>
                     <h1 className="text-base text-prim mt-3">No tracks found, try another search</h1>
                     </div>
+                )}
+                </>
+                ):(
+                    <NoArtistsMessage
+                        image={vinylomusic}
+                        message={"Please asign a starting date for explore your favorite songs 😃"}
+                        buttonText={"Profile"}
+                        buttonAction={()=>navigate('/profile')}
+                    />
                 )}
             </div>
         </Layout>
