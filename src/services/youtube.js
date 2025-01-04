@@ -98,7 +98,7 @@ export const searchVideoandGetId = async (searchTerm) => {
         
         return cachedVideoId;
     } else {
-        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${searchTerm}&type=video&order=viewCount&key=${apiKey}`;
+        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${searchTerm}&type=video&key=${apiKey}`;
         const response = await axios.get(url);
         const videoId = response.data.items[0].id.videoId;
         

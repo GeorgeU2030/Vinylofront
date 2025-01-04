@@ -43,19 +43,25 @@ export const Ranking = () => {
             <div className="flex flex-col items-center">
                 <h1 className="text-3xl font-bold text-center my-4 text-prim">Top Artist</h1>
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
+                    {artists.length > 1 &&
                     <section className="flex flex-col border-2 border-[#bebebe] rounded-lg mt-6">
                         <img src={artists[1].photo} className="w-48 h-52 rounded-lg p-1"/>
                         <h1 className="text-prim text-xl font-bold text-center">{artists[1].name}</h1>
                     </section>
+                    }
+                    {artists.length > 0 &&
                     <section className="flex flex-col border-2 border-[#f1ba11] rounded-lg mt-2">
                         <img src={artists[0].photo} className="w-60 h-64 rounded-lg p-1"/>
                         <h1 className="text-prim text-xl font-bold text-center">{artists[0].name}</h1>
                         
                     </section>
+                    }
+                    {artists.length > 2 &&
                     <section className="flex flex-col border-2 border-[#cd7f32] rounded-lg mt-6">
                         <img src={artists[2].photo} className="w-40 h-44 rounded-lg p-1"/>
                         <h1 className="text-prim text-xl font-bold text-center">{artists[2].name}</h1>
                     </section>
+                    }
                 </div>
 
                 <div className="flex flex-col items-center my-12 w-full">

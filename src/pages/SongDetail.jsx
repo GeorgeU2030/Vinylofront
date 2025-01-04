@@ -67,7 +67,7 @@ export const SongDetail = () => {
                 navigate('/login');
             });
    
-            const searchTerm = `${track.name} ${track.artists[0].name}`;
+            const searchTerm = `${track.artists[0].name} ${track.name}`;
             searchVideoandGetId(searchTerm).then(data => {
                 setVideoId(data);
             });
