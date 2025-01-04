@@ -53,3 +53,22 @@ export const rankingAwards = async () => {
     });
     return response.data;
 }
+
+export const awardsHistory = async () => {
+    const response = await instance.get("/music/get_awards_history/", {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}
+
+export const rankingPeriod = async (period_rank) => {
+    const decoded = decodeURIComponent(period_rank)
+    const response = await instance.get(`/music/ranking_period/${decoded}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    })
+    return response.data;
+}

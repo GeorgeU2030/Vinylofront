@@ -13,6 +13,7 @@ import { Songs } from "@/pages/Songs";
 import { History } from "@/pages/History";
 import { SongDetail } from "@/pages/SongDetail";
 import { ArtistMonth } from "@/pages/ArtistMonth";
+import { DetailRanking } from "@/pages/DetailRanking";
 
 export const router = createBrowserRouter([
   {
@@ -66,5 +67,9 @@ export const router = createBrowserRouter([
   {
     path: "/artist-month",
     element: <ProtectedRoute children={<ArtistMonth/>}/>
+  },
+  {
+    path: "/rank/:period",
+    element: <ProtectedRoute children={<DetailRanking/>}/>
   }
 ])

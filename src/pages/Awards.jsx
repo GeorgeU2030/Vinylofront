@@ -77,12 +77,12 @@ export const Awards = ()=> {
                 {artists.length > 3 &&
                 <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {artists.slice(3).map((artist) => (
-                            <div key={artist.id} className="group flex flex-col justify-center items-center border-2 border-pome py-2 rounded-lg bg-gradient-to-r from-strong to-violetneon cursor-pointer shadow-md hover:bg-gradient-to-r hover:from-prim hover:to-prim text-white">
-                                <img src={artist.photo} alt={artist.name} className="w-36 h-40 object-cover rounded-lg border-2 border-lightviolet"/>
-                                <h1 className="text-black text-xl font-bold text-center mt-1">{artist.name}</h1>
+                            <div key={artist.id} className="group flex flex-col justify-center items-center border-2 border-strong py-2 rounded-lg bg-black cursor-pointer shadow-md hover:bg-gradient-to-r hover:from-prim hover:to-prim text-white">
+                                <img src={artist.photo} alt={artist.name} className="w-36 h-40 object-cover rounded-lg border-2 border-violetneon"/>
+                                <h1 className="text-prim text-xl font-bold text-center mt-1 group-hover:text-black">{artist.name}</h1>
                                 <div className="flex items-center justify-center mt-2 gap-2">
                                     <img src={awards} className="w-10 h-10"/>
-                                    <h1 className="text-black text-xl font-bold text-center">{artist.awards.length}</h1>
+                                    <h1 className="text-prim text-2xl font-bold text-center group-hover:text-black">{artist.awards.length}</h1>
                                 </div>
                             </div>
                     ))}
