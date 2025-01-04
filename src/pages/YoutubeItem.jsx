@@ -10,6 +10,7 @@ export const YoutubeItem = () => {
 
     const video = location.state?.video
 
+
     if(!location.state){
         return (
             <div className="h-screen w-screen flex items-center justify-center">

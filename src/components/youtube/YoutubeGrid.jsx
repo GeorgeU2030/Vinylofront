@@ -8,7 +8,6 @@ export const YoutubeGrid = () => {
     const navigate = useNavigate()
 
     const handleVideoClick = (video) => {
-        console.log(video)
         navigate('/video', { state: { video } })
     }
 
