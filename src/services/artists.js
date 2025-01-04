@@ -35,3 +35,21 @@ export const addMonthAward = async (infoAward) => {
     })
     return response.data;
 }
+
+export const rankingArtists = async () => {
+    const response = await instance.get("/music/ranking/", {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}
+
+export const rankingAwards = async () => {
+    const response = await instance.get("/music/ranking_awards/", {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}
