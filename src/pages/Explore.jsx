@@ -21,7 +21,7 @@ export const Explore = () => {
 
     let hasDate;
 
-    if (user.dateInit != null){
+    if (user && user.dateInit != null){
         hasDate = true
     }else {
         hasDate = false

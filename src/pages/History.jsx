@@ -57,11 +57,17 @@ export const History = () => {
         <Layout menuActiveItem={'history'}>
             {awards.length > 0 ?(
                 <div className="flex flex-col items-center w-full">
-                    <h1 className="text-prim text-2xl">History Awards</h1>
+                    <div className="flex justify-between items-center w-2/3">
+                        <h1 className="text-prim text-2xl flex-grow text-center">History Awards</h1>
+                        <button className="bg-violetneon text-white font-bold px-4 py-2 rounded hover:bg-strong border-2 border-prim"
+                        onClick={()=> navigate('/stats')}
+                        >STATS</button>
+                    </div>
+                    
                         {awards.map((award, index) => (
-                            <section key={index} className="group flex flex-col lg:flex-row items-center border-2 border-[#bebebe] rounded-lg mt-6 w-2/3 py-3 px-2">
+                            <section key={index} className="group flex flex-col lg:flex-row items-center border-2 border-[#bebebe] rounded-lg mt-6 w-11/12 lg:w-2/3 py-3 px-2">
                                 <img src={getTypeAward(award.award.type_award)} className="w-20 h-20 rounded-lg p-1"/>
-                                <h1 className="text-prim text-xl font-bold text-center w-96">{award.award.description}</h1>
+                                <h1 className="text-prim text-xl font-bold text-center w-96 py-3 lg:py-0">{award.award.description}</h1>
                                 <img src={award.artist_photo} className="rounded-full h-20 w-20 border-1 border-strong"/>
                                 <h1 className="text-white text-lg font-bold text-center w-96">{award.artist_name}</h1>
                                 {getButton(award.award.type_award, award.award.description)}
