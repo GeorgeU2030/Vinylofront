@@ -72,3 +72,12 @@ export const rankingPeriod = async (period_rank) => {
     })
     return response.data;
 }
+
+export const getStats = async () => {
+    const response = await instance.get("/music/stats/", {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}

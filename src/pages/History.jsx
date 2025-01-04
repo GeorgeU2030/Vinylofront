@@ -27,8 +27,6 @@ export const History = () => {
         fetchAwards()
     },[])
 
-    console.log(awards)
-
     const getTypeAward = (type) => {
         if (type === 2){
             return vinylosilver
