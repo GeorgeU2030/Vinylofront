@@ -45,7 +45,9 @@ export const Awards = ()=> {
             <div className="flex flex-col items-center">
                 <h1 className="text-3xl font-bold text-center my-4 text-prim">Awards Artists</h1>
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
-                    <section className="flex flex-col border-2 border-[#f1ba11] rounded-lg cursor-pointer">
+                    <section className="flex flex-col border-2 border-[#f1ba11] rounded-lg cursor-pointer"
+                    onClick={()=>navigate(`/artist/${artists[0].id}`)}
+                    >
                         <img src={artists[0].photo} className="w-60 h-64 rounded-lg p-1"/>
                         <h1 className="text-prim text-xl font-bold text-center">{artists[0].name}</h1>
                         <div className="flex items-center justify-center gap-2 mt-2">
@@ -54,7 +56,9 @@ export const Awards = ()=> {
                         </div>
                     </section>
                     {artists.length > 1 &&
-                    <section className="flex flex-col border-2 border-[#bebebe] rounded-lg cursor-pointer">
+                    <section className="flex flex-col border-2 border-[#bebebe] rounded-lg cursor-pointer"
+                    onClick={()=>navigate(`/artist/${artists[1].id}`)}
+                    >
                         <img src={artists[1].photo} className="w-60 h-64 rounded-lg p-1"/>
                         <h1 className="text-prim text-xl font-bold text-center">{artists[1].name}</h1>
                         <div className="flex items-center justify-center gap-2 mt-2">
@@ -64,7 +68,9 @@ export const Awards = ()=> {
                     </section>
                     }
                     {artists.length > 2 &&
-                    <section className="flex flex-col border-2 border-[#cd7f32] rounded-lg cursor-pointer">
+                    <section className="flex flex-col border-2 border-[#cd7f32] rounded-lg cursor-pointer"
+                    onClick={()=>navigate(`/artist/${artists[2].id}`)}
+                    >
                         <img src={artists[2].photo} className="w-60 h-64 rounded-lg p-1"/>
                         <h1 className="text-prim text-xl font-bold text-center">{artists[2].name}</h1>
                         <div className="flex items-center justify-center gap-2 mt-2">
@@ -77,7 +83,9 @@ export const Awards = ()=> {
                 {artists.length > 3 &&
                 <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {artists.slice(3).map((artist) => (
-                            <div key={artist.id} className="group flex flex-col justify-center items-center border-2 border-strong py-2 rounded-lg bg-black cursor-pointer shadow-md hover:bg-gradient-to-r hover:from-prim hover:to-prim text-white">
+                            <div key={artist.id} className="group flex flex-col justify-center items-center border-2 border-strong py-2 rounded-lg bg-black cursor-pointer shadow-md hover:bg-gradient-to-r hover:from-prim hover:to-prim text-white"
+                            onClick={()=>navigate(`/artist/${artist.id}`)}
+                            >
                                 <img src={artist.photo} alt={artist.name} className="w-36 h-40 object-cover rounded-lg border-2 border-violetneon"/>
                                 <h1 className="text-prim text-xl font-bold text-center mt-1 group-hover:text-black">{artist.name}</h1>
                                 <div className="flex items-center justify-center mt-2 gap-2">

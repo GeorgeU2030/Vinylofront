@@ -70,7 +70,9 @@ export const Ranking = () => {
                         return (
                             <div key={artist.id} className="flex flex-col sm:flex-row items-center justify-center gap-4 my-4 w-full lg:w-3/4 bg-dark rounded-lg p-2
                             border-2 border-prim cursor-pointer
-                            ">
+                            "
+                            onClick={()=>navigate(`/artist/${artist.id}`)}
+                            >
                                 <h1 className="text-white text-center text-lg">{index+1}</h1>
                                 <img src={artist.photo} className="w-28 h-28 rounded-lg p-1"/>
                                 <h1 className="text-white text-xl text-center md:!text-left font-bold w-1/2">{artist.name}</h1>

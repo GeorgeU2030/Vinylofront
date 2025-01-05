@@ -13,16 +13,17 @@ export const Stats = () => {
 
     // Generate column headers dynamically based on maxWeek, starting from week 1
     const columns = [
+        { key: 'position', label: '#' },
         { key: 'photo', label: '' },
         { key: 'name', label: 'Artist' },
-        ...Array.from({ length: maxWeek }, (_, i) => ({ 
+        ...Array.from({ length: Math.min(maxWeek, 8) }, (_, i) => ({ 
             key: `week_${maxWeek - i}`, 
             label: `Week ${maxWeek - i}` 
         })).filter(column => {
             const weekNumber = parseInt(column.key.split('_')[1])
             return weekNumber > 0
         })
-    ]
+    ];
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -40,9 +41,19 @@ export const Stats = () => {
     }, [])
 
     const renderCell = (item, key) => {
-        if (key === 'photo') {
+        if (key === 'position') {
             return (
                 <div className="flex justify-center">
+                    <span className="font-semibold text-prim text-xl">
+                        {item.current_position}
+                    </span>
+                </div>
+            )
+        }
+
+        if (key === 'photo') {
+            return (
+                <div className="flex justify-center min-w-20">
                     <img 
                         src={item.photo} 
                         alt={item.name} 
@@ -53,7 +64,7 @@ export const Stats = () => {
         }
         if (key === 'name') {
             return (
-                <div className="flex justify-center w-full min-w-60 ">
+                <div className="flex justify-center w-full min-w-72 ">
                     <span className="font-semibold text-center text-white">
                         {item.name}
                     </span>
@@ -91,10 +102,10 @@ export const Stats = () => {
                 </div>
             </nav>
             
-            <div className="flex-grow flex flex-col items-center">
+            <div className="flex-grow flex flex-col items-center w-full">
                 {loaded && (ranks.length > 0 ? (
                     <section className="w-full md:w-4/5 mt-3">
-                        <div className="overflow-auto max-h-[30rem]">
+                        <div className="overflow-auto max-w-[80rem] max-h-[40rem]">
                             <table className="w-full border-collapse">
                                 <thead className="border-2 border-green-400 rounded-lg">
                                     <tr>

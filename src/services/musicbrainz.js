@@ -18,7 +18,7 @@ export const getArtistCountry = async (artist)=>{
     const url = `https://musicbrainz.org/ws/2/artist?query=artist:${artist}&fmt=json`
     const response = await axios.get(url)
     const city = response.data.artists[0]['begin-area'].name
-    if (city == 'United States' || city == 'San Francisco'){
+    if (city == 'United States' || city == 'San Francisco' || city == 'Canton' || city == 'Georgia'){
         return 'United States'
     }
     const encodedCity = encodeURIComponent(city)

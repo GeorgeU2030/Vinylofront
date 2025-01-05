@@ -81,3 +81,21 @@ export const getStats = async () => {
     });
     return response.data;
 }
+
+export const getArtist = async (id) => {
+    const response = await instance.get(`/music/get_artist/${id}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}
+
+export const awardsArtist = async (id) => {
+    const response = await instance.get(`/music/award_artist/${id}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}

@@ -85,9 +85,11 @@ export const getChannelDetails = async (channelId) => {
 
 
 export const searchVideoandGetId = async (searchTerm) => {
+    searchTerm += "(Official Music Video)";
     const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
     const cacheKey = `search-${searchTerm}`;  // Key for every search term
     const cacheExpirationKey = `searchExpiration-${searchTerm}`;
+
 
     // Check if the video ID is cached
     const cachedVideoId = localStorage.getItem(cacheKey);

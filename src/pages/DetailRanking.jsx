@@ -41,15 +41,15 @@ export const DetailRanking = () => {
                 </h1>
             </div>
             </nav>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center my-4">
                 <h1 className="text-prim text-2xl">{period}</h1>
                 {rankings.length > 0 ? (
                     rankings.map((ranking, index) => (
-                        <section key={index} className="group flex flex-col lg:flex-row items-center border-2 border-[#bebebe] rounded-lg mt-6 w-2/3 py-3 px-2">
-                            <h1 className="text-prim text-xl">{index+1}</h1>
+                        <section key={index} className="group flex flex-col justify-center lg:flex-row items-center border-2 border-[#bebebe] rounded-lg mt-6 w-2/3 py-3 px-2">
+                            <h1 className="text-prim text-xl w-16">{index+1}</h1>
                             <img src={ranking.artist.photo} className="rounded-full h-20 w-20 border-1 border-strong"/>
                             <h1 className="text-prim text-xl font-bold text-center w-96">{ranking.artist.name}</h1>
-                            <h1 className="text-prim text-lg font-bold text-center w-32">{ranking.artist.country}</h1>
+                            <h1 className="text-prim text-lg font-bold text-center w-48">{ranking.artist.country}</h1>
                             <h1 className="text-prim text-xl font-bold text-center w-32">{ranking.points}</h1>
                         </section>
                     ))

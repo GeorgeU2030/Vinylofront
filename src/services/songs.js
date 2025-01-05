@@ -27,3 +27,12 @@ export const getAllSongs = async () => {
     
     return response.data;
 }
+
+export const getSongsById = async (id) => {
+    const response = await instance.get(`/music/get_song_artist/${id}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+    });
+    return response.data;
+}
