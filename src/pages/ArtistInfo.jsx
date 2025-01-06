@@ -128,41 +128,37 @@ export const ArtistInfo = () => {
             </section>
             <h1 className="mt-6 mb-3 text-3xl text-prim">Awards</h1>
             <div className="w-5/6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 my-4">
+                {/* Bronze Award */}
                 <div className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#cd7f32]">
-                    <img src={vinylobronze} className="w-20 h-20"/>
+                    <img src={vinylobronze} className="w-20 h-20" />
                     <h1 className="text-white text-xl font-bold text-center p-2">Bronze Awards {awards.bronze}</h1>
                 </div>
-                {awards.silver && awards.silver.length > 0 && (
-                    <div className="flex flex-col justify-center">
-                        {awards.silver.map((award) => (
-                            <div key={award.id} className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#bebebe]">
-                                <img src={vinylosilver} className="w-20 h-20" alt="Silver Award"/>
-                                <h1 className="text-white text-xl font-bold text-center p-2">{award.description}</h1>
-                            </div>
-                        ))}
+
+                {/* Silver Awards */}
+                {awards.silver && awards.silver.length > 0 && awards.silver.map((award) => (
+                    <div key={award.id} className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#bebebe]">
+                        <img src={vinylosilver} className="w-20 h-20" alt="Silver Award" />
+                        <h1 className="text-white text-xl font-bold text-center p-2">{award.description}</h1>
                     </div>
-                )}
-                {awards.amber && awards.amber.length > 0 && (
-                    <div className="flex flex-col justify-center">
-                        {awards.amber.map((award) => (
-                            <div key={award.id} className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#f1ba11]">
-                                <img src={vinyloamber} className="w-20 h-20" alt="Gold Award"/>
-                                <h1 className="text-white text-xl font-bold text-center p-2">{award.description}</h1>
-                            </div>
-                        ))}
+                ))}
+
+                {/* Amber Awards */}
+                {awards.amber && awards.amber.length > 0 && awards.amber.map((award) => (
+                    <div key={award.id} className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#f1ba11]">
+                        <img src={vinyloamber} className="w-20 h-20" alt="Amber Award" />
+                        <h1 className="text-white text-xl font-bold text-center p-2">{award.description}</h1>
                     </div>
-                )}
-                {awards.gold && awards.gold.length > 0 && (
-                    <div className="flex flex-col justify-center">
-                        {awards.gold.map((award) => (
-                            <div key={award.id} className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#cda732]">
-                                <img src={vinylogold} className="w-20 h-20" alt="Gold Award"/>
-                                <h1 className="text-white text-xl font-bold text-center p-2">{award.description}</h1>
-                            </div>
-                        ))}
+                ))}
+
+                {/* Gold Awards */}
+                {awards.gold && awards.gold.length > 0 && awards.gold.map((award) => (
+                    <div key={award.id} className="bg-dark flex flex-col items-center justify-center p-3 rounded-lg border-2 border-[#cda732]">
+                        <img src={vinylogold} className="w-20 h-20" alt="Gold Award" />
+                        <h1 className="text-white text-xl font-bold text-center p-2">{award.description}</h1>
                     </div>
-                )}
+                ))}
             </div>
+
 
             <h1 className="mt-6 mb-3 text-3xl text-prim">Songs</h1>
             <div className="w-5/6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 my-4">

@@ -96,25 +96,28 @@ export const SongDetail = () => {
         )
     }
 
+
     // functions
     const calculateDates = () =>{
         // start date from the user
         const start_date = user?.currentDate
         
         // set the start date to type date
-        const startDate_obj = new Date(start_date)
-        setStartDate(start_date)
+        const [year, month, day] = start_date.split('-').map(num => parseInt(num, 10));
+        const startDate_obj = new Date(Date.UTC(year, month - 1, day));
+        setStartDate(start_date);
 
-        // calculate the end date and set it to type date
-        startDate_obj.setDate(startDate_obj.getDate() + 6)
-        const end_date = startDate_obj.toISOString().split('T')[0]
-        setEndDate(end_date)
-        
-        // calculate the current date and set it to type date
-        const newDate_obj = new Date(start_date)
-        newDate_obj.setDate(newDate_obj.getDate() + 7)
-        const newDate = newDate_obj.toISOString().split('T')[0]
-        setCurrentDate(newDate)
+        // set the end date (startDate + 6 días)
+        const endDate_obj = new Date(Date.UTC(year, month - 1, day));
+        endDate_obj.setUTCDate(endDate_obj.getUTCDate() + 6);
+        const end_date = endDate_obj.toISOString().split('T')[0];
+        setEndDate(end_date);
+
+        // set the new current date (startDate + 7 días)
+        const newDate_obj = new Date(Date.UTC(year, month - 1, day));
+        newDate_obj.setUTCDate(newDate_obj.getUTCDate() + 7);
+        const newDate = newDate_obj.toISOString().split('T')[0];
+        setCurrentDate(newDate);
     }
 
     const handleButtonClick = (rating) => {
@@ -218,6 +221,7 @@ export const SongDetail = () => {
         }
     }
 
+    console.log(artists)
     const isLastWeekMonth = () => {
         const beginDate = new Date(startDate)
        
